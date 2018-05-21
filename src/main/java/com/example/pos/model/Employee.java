@@ -1,5 +1,7 @@
 package com.example.pos.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +34,7 @@ public class Employee {
 	private String phoneNumber;
 
 	@OneToMany
-	private CashDrawer cashDrawer;
+	private List<CashDrawer> cashDrawers;
 
 	public Employee() {
 		// TODO Auto-generated constructor stub
@@ -84,6 +86,14 @@ public class Employee {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public List<CashDrawer> getCashDrawers() {
+		return cashDrawers;
+	}
+
+	public void setCashDrawers(List<CashDrawer> cashDrawers) {
+		this.cashDrawers = cashDrawers;
 	}
 
 }
