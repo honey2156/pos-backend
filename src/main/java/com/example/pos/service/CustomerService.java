@@ -15,4 +15,6 @@ public interface CustomerService {
 	public Customer getCustomerByEmail(String customerEmail);
 	
 	public Customer getCustomerByNumber(String customerNumber);
+	
+	public void seedCustomers(List<Customer> seededCustomers);
 }

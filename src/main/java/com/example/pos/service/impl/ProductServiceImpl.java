@@ -40,4 +40,9 @@ public class ProductServiceImpl implements ProductService {
 		productDao.save(product);
 	}
 
+	@Override
+	public void seedProducts(List<Product> seededProducts) {
+		productDao.saveAll(seededProducts);
+	}
+
 }

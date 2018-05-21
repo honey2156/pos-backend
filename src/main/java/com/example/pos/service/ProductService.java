@@ -15,4 +15,6 @@ public interface ProductService {
 	public List<Product> getProductsByDescription(String description);
 	
 	public void updateProduct(Product product);
+	
+	public void seedProducts(List<Product> seededProducts);
 }

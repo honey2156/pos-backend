@@ -42,4 +42,9 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerDao.findByNumber(customerNumber);
 	}
 
+	@Override
+	public void seedCustomers(List<Customer> seededCustomers) {
+		customerDao.saveAll(seededCustomers);
+	}
+
 }
