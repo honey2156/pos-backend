@@ -41,6 +41,11 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public List<Product> searchProducts(String searchPattern) {
+		return productDao.searchProducts(searchPattern, searchPattern, searchPattern);
+	}
+
+	@Override
 	public void seedProducts(List<Product> seededProducts) {
 		productDao.saveAll(seededProducts);
 	}

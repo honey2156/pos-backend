@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,6 +26,9 @@ public class CustomerResource {
 		return customerService.getAllCustomers();
 	}
 
+	/**
+	 * Seed for Customers
+	 */
 	@GetMapping(value = "/seed")
 	public void seedCustomers() {
 		List<Customer> seededCustomers = new ArrayList<>();
@@ -32,6 +36,17 @@ public class CustomerResource {
 			seededCustomers.add(new Customer("Customer" + i, "customer" + i + "@email.com", "123456789" + i));
 		}
 		customerService.seedCustomers(seededCustomers);
+	}
+
+	/**
+	 * Search Customers by search pattern
+	 * 
+	 * @param searchPattern
+	 * @return
+	 */
+	@GetMapping(value = "/{searchPattern}")
+	public List<Customer> searchCustomers(@PathVariable("searchPattern") String searchPattern) {
+		return customerService.searchCustomers(searchPattern);
 	}
 
 }

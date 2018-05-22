@@ -16,5 +16,7 @@ public interface ProductService {
 	
 	public void updateProduct(Product product);
 	
+	public List<Product> searchProducts(String searchPattern);
+	
 	public void seedProducts(List<Product> seededProducts);
 }

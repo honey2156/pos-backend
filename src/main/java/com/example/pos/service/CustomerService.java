@@ -16,5 +16,7 @@ public interface CustomerService {
 	
 	public Customer getCustomerByNumber(String customerNumber);
 	
+	public List<Customer> searchCustomers(String searchPattern);
+	
 	public void seedCustomers(List<Customer> seededCustomers);
 }

@@ -43,6 +43,11 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
+	public List<Customer> searchCustomers(String searchPattern) {
+		return customerDao.searchCustomers(searchPattern, searchPattern, searchPattern, searchPattern);
+	}
+
+	@Override
 	public void seedCustomers(List<Customer> seededCustomers) {
 		customerDao.saveAll(seededCustomers);
 	}
