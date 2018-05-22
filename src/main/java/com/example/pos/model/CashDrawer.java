@@ -12,8 +12,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.example.pos.constants.TableConstants;
+
 @Entity
-@Table(name = "cash_drawer")
+@Table(name = TableConstants.CASH_DRAWER)
 public class CashDrawer {
 
 	@Id

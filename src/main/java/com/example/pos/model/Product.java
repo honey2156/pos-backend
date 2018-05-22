@@ -7,8 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.example.pos.constants.TableConstants;
+
 @Entity
-@Table(name = "products")
+@Table(name = TableConstants.PRODUCT)
 public class Product {
 
 	@Id

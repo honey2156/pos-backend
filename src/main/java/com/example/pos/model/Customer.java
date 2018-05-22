@@ -7,8 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.example.pos.constants.TableConstants;
+
 @Entity
-@Table(name = "customers")
+@Table(name = TableConstants.CUSTOMER)
 public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

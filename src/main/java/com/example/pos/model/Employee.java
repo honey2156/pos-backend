@@ -10,8 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.example.pos.constants.TableConstants;
+
 @Entity
-@Table(name = "employees")
+@Table(name = TableConstants.EMPLOYEE)
 public class Employee {
 
 	@Id
