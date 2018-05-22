@@ -1,5 +1,6 @@
 package com.example.pos.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -57,6 +58,8 @@ public class Employee {
 		this.password = password;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
+		this.orders = new ArrayList<>();
+		this.cashDrawers = new ArrayList<>();
 	}
 
 	public int getId() {
