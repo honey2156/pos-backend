@@ -4,11 +4,15 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import com.example.pos.constants.TableConstants;
 
@@ -35,11 +39,24 @@ public class Employee {
 	@Column
 	private String phoneNumber;
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "employee")
+	@Fetch(FetchMode.SUBSELECT)
 	private List<CashDrawer> cashDrawers;
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "employee")
+	private List<Order> orders;
 
 	public Employee() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public Employee(String name, String username, String password, String email, String phoneNumber) {
+		super();
+		this.name = name;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
 	}
 
 	public int getId() {
@@ -96,6 +113,14 @@ public class Employee {
 
 	public void setCashDrawers(List<CashDrawer> cashDrawers) {
 		this.cashDrawers = cashDrawers;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 }

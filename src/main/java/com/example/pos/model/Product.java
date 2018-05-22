@@ -1,10 +1,15 @@
 package com.example.pos.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.example.pos.constants.TableConstants;
@@ -29,6 +34,9 @@ public class Product {
 	@Column(nullable = false)
 	private int stock;
 
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
+	private List<OrderDetail> orderDetails;
+
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}
@@ -39,6 +47,7 @@ public class Product {
 		this.description = description;
 		this.price = price;
 		this.stock = stock;
+		this.orderDetails = new ArrayList<>();
 	}
 
 	public int getId() {
@@ -79,6 +88,14 @@ public class Product {
 
 	public void setStock(int stock) {
 		this.stock = stock;
+	}
+
+	public List<OrderDetail> getOrderDetails() {
+		return orderDetails;
+	}
+
+	public void setOrderDetails(List<OrderDetail> orderDetails) {
+		this.orderDetails = orderDetails;
 	}
 
 }
