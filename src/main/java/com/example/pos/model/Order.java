@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import com.example.pos.constants.TableConstants;
 import com.example.pos.constants.enums.PaymentMode;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = TableConstants.ORDER)
@@ -37,6 +38,7 @@ public class Order {
 	@ManyToOne
 	private Customer customer;
 
+	@JsonBackReference
 	@ManyToOne
 	private Employee employee;
 

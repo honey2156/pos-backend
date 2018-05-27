@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.example.pos.constants.TableConstants;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = TableConstants.CASH_DRAWER)
@@ -29,6 +30,7 @@ public class CashDrawer {
 	@Column(nullable = false)
 	private double endingBalance;
 
+	@JsonBackReference
 	@ManyToOne
 	private Employee employee;
 
