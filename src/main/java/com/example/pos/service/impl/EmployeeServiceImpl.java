@@ -24,4 +24,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public void seedEmployees(List<Employee> seededEmployees) {
 		employeeDao.saveAll(seededEmployees);
 	}
+
+	@Override
+	public Employee login(String username, String password) {
+		Employee employee = employeeDao.findByUsername(username);
+		if (employee != null && password.equals(employee.getPassword())) {
+			return employee;
+		} else
+			return null;
+	}
+
 }

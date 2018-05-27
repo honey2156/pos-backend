@@ -33,7 +33,7 @@ public class ProductResource {
 	public void seedProducts() {
 		List<Product> seededProducts = new ArrayList<>();
 		for (int i = 1; i <= 20; i++) {
-			seededProducts.add(new Product("Item" + i, "Description" + i, i, 10));
+			seededProducts.add(new Product("Item" + i, "Best product ever "+i, i, 10));
 		}
 		productService.seedProducts(seededProducts);
 	}

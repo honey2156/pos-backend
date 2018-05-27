@@ -1,7 +1,5 @@
 package com.example.pos.model;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.example.pos.constants.TableConstants;
 
@@ -23,8 +19,9 @@ public class CashDrawer {
 	private int id;
 
 	@Column(unique = true, nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date date;
+	// @Temporal(TemporalType.DATE)
+	// private Date date;
+	private String date;
 
 	@Column(nullable = false)
 	private double startingBalance;
@@ -47,11 +44,11 @@ public class CashDrawer {
 		this.id = id;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

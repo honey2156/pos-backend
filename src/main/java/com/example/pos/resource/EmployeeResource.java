@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,6 +16,7 @@ import com.example.pos.service.EmployeeService;
 
 @RestController
 @RequestMapping(value = "/employees")
+@CrossOrigin(origins = { "http://localhost:4200" })
 public class EmployeeResource {
 
 	@Autowired
@@ -32,5 +36,11 @@ public class EmployeeResource {
 					"1234567891"));
 		}
 		employeeService.seedEmployees(employees);
+	}
+	
+	@PostMapping(value="/login")
+	public Employee login(@RequestBody Employee employee) {
+		System.out.println(employee.getUsername()+" "+ employee.getPassword());
+		return employeeService.login(employee.getUsername(), employee.getPassword());
 	}
 }

@@ -1,6 +1,5 @@
 package com.example.pos.model;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -11,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.example.pos.constants.TableConstants;
 import com.example.pos.constants.enums.PaymentMode;
@@ -27,8 +24,11 @@ public class Order {
 
 	private boolean status;
 
-	@Temporal(TemporalType.DATE)
-	private Date orderDate;
+	// @Temporal(TemporalType.DATE)
+	// private Date orderDate;
+	private String orderDate;
+
+	private String orderTime;
 
 	private PaymentMode paymentMode;
 
@@ -63,12 +63,20 @@ public class Order {
 		this.status = status;
 	}
 
-	public Date getOrderDate() {
+	public String getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(Date orderDate) {
+	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
+	}
+
+	public String getOrderTime() {
+		return orderTime;
+	}
+
+	public void setOrderTime(String orderTime) {
+		this.orderTime = orderTime;
 	}
 
 	public PaymentMode getPaymentMode() {
