@@ -32,7 +32,7 @@ public class DrawerServiceImpl implements DrawerService {
 		if (drawerDao.getDrawerByDate(employee, this.getCurrentDate()) == null) {
 			drawer.setEmployee(employee);
 			drawer.setDate(getCurrentDate());
-			drawer.setStartingBalance(0);
+			drawer.setStartingBalance(drawer.getStartingBalance());
 			drawer.setEndingBalance(drawer.getStartingBalance());
 			drawerDao.save(drawer);
 		}
