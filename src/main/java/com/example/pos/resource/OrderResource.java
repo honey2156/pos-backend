@@ -1,5 +1,7 @@
 package com.example.pos.resource;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,15 +20,20 @@ public class OrderResource {
 	@Autowired
 	private OrderService orderService;
 
-	@PostMapping(value = "emplpoyees/{employeeId}/customers/{customerId}/orders")
+	@PostMapping(value = "employees/{employeeId}/customers/{customerId}/orders")
 	public Order placeOrder(@PathVariable("employeeId") int employeeId, @PathVariable("customerId") int customerId,
 			@RequestBody Order order) {
 		return orderService.order(order, employeeId, customerId);
 	}
 
-	@GetMapping(value = "emplpoyees/{employeeId}/customers/{customerId}/orders/{orderId}")
+	@GetMapping(value = "employees/{employeeId}/customers/{customerId}/orders/{orderId}")
 	public void confirmOrder(@PathVariable("employeeId") int employeeId, @PathVariable("customerId") int customerId,
 			@PathVariable int orderId) {
 		orderService.confirmOrder(orderId);
+	}
+	
+	@GetMapping(value="employees/{employeeId}/orders")
+	public List<Order> getEmployeeOrders(@PathVariable int employeeId){
+		return orderService.getEmployeeOrders(employeeId);
 	}
 }

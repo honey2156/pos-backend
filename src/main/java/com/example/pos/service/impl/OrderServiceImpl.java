@@ -52,6 +52,12 @@ public class OrderServiceImpl implements OrderService {
 	public List<Order> getCustomerOrders(int customerId) {
 		return customerDao.findById(customerId).getOrders();
 	}
+	
+	@Override
+	public List<Order> getEmployeeOrders(int employeeId) {
+		Employee employee = employeeDao.findById(employeeId);
+		return orderDao.findAllByEmployee(employee);
+	}
 
 	@Override
 	public Order getOrder(int orderId) {

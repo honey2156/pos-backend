@@ -40,7 +40,6 @@ public class EmployeeResource {
 	
 	@PostMapping(value="/login")
 	public Employee login(@RequestBody Employee employee) {
-		System.out.println(employee.getUsername()+" "+ employee.getPassword());
 		return employeeService.login(employee.getUsername(), employee.getPassword());
 	}
 }
