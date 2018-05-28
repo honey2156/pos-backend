@@ -13,9 +13,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.example.pos.constants.TableConstants;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = TableConstants.PRODUCT)
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Product {
 
 	@Id
@@ -34,6 +37,7 @@ public class Product {
 	@Column(nullable = false)
 	private int stock;
 
+	@JsonManagedReference("productOrderDetails")
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
 	private List<OrderDetail> orderDetails;
 

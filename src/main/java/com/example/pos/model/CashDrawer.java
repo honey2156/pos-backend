@@ -10,9 +10,11 @@ import javax.persistence.Table;
 
 import com.example.pos.constants.TableConstants;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = TableConstants.CASH_DRAWER)
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class CashDrawer {
 
 	@Id
@@ -30,7 +32,7 @@ public class CashDrawer {
 	@Column(nullable = false)
 	private double endingBalance;
 
-	@JsonBackReference
+	@JsonBackReference("employeeDrawers")
 	@ManyToOne
 	private Employee employee;
 

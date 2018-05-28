@@ -9,9 +9,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.example.pos.constants.TableConstants;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = TableConstants.ORDER_DETAILS)
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class OrderDetail {
 
 	@Id
@@ -21,11 +24,15 @@ public class OrderDetail {
 	@Column(nullable = false)
 	private int quantity;
 
-	private double subTotal;
+	private int price;
 
+	// private double subTotal;
+
+	@JsonBackReference("orderDetails")
 	@ManyToOne
 	private Order order;
 
+	@JsonBackReference("productOrderDetails")
 	@ManyToOne
 	private Product product;
 
@@ -41,6 +48,14 @@ public class OrderDetail {
 		this.id = id;
 	}
 
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
 	public int getQuantity() {
 		return quantity;
 	}
@@ -49,13 +64,13 @@ public class OrderDetail {
 		this.quantity = quantity;
 	}
 
-	public double getSubTotal() {
-		return subTotal;
-	}
-
-	public void setSubTotal(double subTotal) {
-		this.subTotal = subTotal;
-	}
+	// public double getSubTotal() {
+	// return subTotal;
+	// }
+	//
+	// public void setSubTotal(double subTotal) {
+	// this.subTotal = subTotal;
+	// }
 
 	public Order getOrder() {
 		return order;

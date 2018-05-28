@@ -12,11 +12,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.example.pos.constants.TableConstants;
-import com.example.pos.constants.enums.PaymentMode;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = TableConstants.ORDER)
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Order {
 
 	@Id
@@ -31,17 +33,20 @@ public class Order {
 
 	private String orderTime;
 
-	private PaymentMode paymentMode;
+	// private PaymentMode paymentMode;
+	private String paymentMode;
 
 	private double totalAmount;
 
+	@JsonBackReference("customerOrders")
 	@ManyToOne
 	private Customer customer;
 
-	@JsonBackReference
+	@JsonBackReference("employeeOrders")
 	@ManyToOne
 	private Employee employee;
 
+	@JsonManagedReference("orderDetails")
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "order")
 	private List<OrderDetail> orderDetails;
 
@@ -81,16 +86,24 @@ public class Order {
 		this.orderTime = orderTime;
 	}
 
-	public PaymentMode getPaymentMode() {
-		return paymentMode;
-	}
-
-	public void setPaymentMode(PaymentMode paymentMode) {
-		this.paymentMode = paymentMode;
-	}
+	// public PaymentMode getPaymentMode() {
+	// return paymentMode;
+	// }
+	//
+	// public void setPaymentMode(PaymentMode paymentMode) {
+	// this.paymentMode = paymentMode;
+	// }
 
 	public double getTotalAmount() {
 		return totalAmount;
+	}
+
+	public String getPaymentMode() {
+		return paymentMode;
+	}
+
+	public void setPaymentMode(String paymentMode) {
+		this.paymentMode = paymentMode;
 	}
 
 	public void setTotalAmount(double totalAmount) {

@@ -16,10 +16,12 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import com.example.pos.constants.TableConstants;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = TableConstants.EMPLOYEE)
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Employee {
 
 	@Id
@@ -42,12 +44,12 @@ public class Employee {
 	private String phoneNumber;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "employee")
-	@JsonManagedReference
+	@JsonManagedReference("employeeDrawers")
 	@Fetch(FetchMode.SUBSELECT)
 	private List<CashDrawer> cashDrawers;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "employee")
-	@JsonManagedReference
+	@JsonManagedReference("employeeOrders")
 	private List<Order> orders;
 
 	public Employee() {

@@ -1,0 +1,18 @@
+package com.example.pos.service;
+
+import java.util.List;
+
+import com.example.pos.model.Order;
+
+public interface OrderService {
+
+	public List<Order> getAllOrders();
+
+	public List<Order> getCustomerOrders(int customerId);
+
+	public Order getOrder(int orderId);
+
+	public void confirmOrder(int orderId);
+
+	public Order order(Order order, int employeeId, int customerId);
+}
