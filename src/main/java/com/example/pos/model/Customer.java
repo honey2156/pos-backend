@@ -13,8 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.example.pos.constants.TableConstants;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = TableConstants.CUSTOMER)
@@ -33,7 +33,8 @@ public class Customer {
 	@Column(nullable = false, length = 10, unique = true)
 	private String number;
 
-	@JsonManagedReference("customerOrders")
+//	@JsonManagedReference("customerOrders")
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
 	private List<Order> orders;
 

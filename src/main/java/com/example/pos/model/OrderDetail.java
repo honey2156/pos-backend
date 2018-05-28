@@ -26,13 +26,12 @@ public class OrderDetail {
 
 	private int price;
 
-	// private double subTotal;
 
 	@JsonBackReference("orderDetails")
 	@ManyToOne
 	private Order order;
 
-	@JsonBackReference("productOrderDetails")
+//	@JsonBackReference("productOrderDetails")
 	@ManyToOne
 	private Product product;
 

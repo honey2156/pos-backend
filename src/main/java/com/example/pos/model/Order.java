@@ -38,8 +38,8 @@ public class Order {
 
 	private double totalAmount;
 
-	@JsonBackReference("customerOrders")
-	@ManyToOne
+//	@JsonBackReference("customerOrders")
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Customer customer;
 
 	@JsonBackReference("employeeOrders")
