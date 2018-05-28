@@ -7,13 +7,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.example.pos.constants.TableConstants;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = TableConstants.CASH_DRAWER)
+@Table(name = TableConstants.CASH_DRAWER, uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "employee_id", "date" }) })
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class CashDrawer {
 
@@ -21,7 +23,7 @@ public class CashDrawer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(unique = true, nullable = false)
+//	@Column(unique = true, nullable = false)
 	// @Temporal(TemporalType.DATE)
 	// private Date date;
 	private String date;

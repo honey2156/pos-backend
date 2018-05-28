@@ -15,4 +15,6 @@ public interface OrderService {
 	public void confirmOrder(int orderId);
 
 	public Order order(Order order, int employeeId, int customerId);
+	
+	public void updateCashDrawer(Order order);
 }

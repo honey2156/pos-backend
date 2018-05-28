@@ -7,16 +7,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.pos.constants.enums.PaymentMode;
 import com.example.pos.dao.CustomerDao;
 import com.example.pos.dao.EmployeeDao;
 import com.example.pos.dao.OrderDao;
 import com.example.pos.dao.OrderDetailDao;
 import com.example.pos.dao.ProductDao;
+import com.example.pos.model.CashDrawer;
 import com.example.pos.model.Customer;
 import com.example.pos.model.Employee;
 import com.example.pos.model.Order;
 import com.example.pos.model.OrderDetail;
 import com.example.pos.model.Product;
+import com.example.pos.service.DrawerService;
 import com.example.pos.service.OrderService;
 
 @Service
@@ -33,9 +36,12 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private ProductDao productDao;
-	
+
 	@Autowired
 	private OrderDetailDao orderDetailDao;
+
+	@Autowired
+	private DrawerService drawerService;
 
 	@Override
 	public List<Order> getAllOrders() {
@@ -77,10 +83,20 @@ public class OrderServiceImpl implements OrderService {
 		order.setOrderTime(this.currentTime());
 		order = orderDao.save(order);
 		orderDetailDao.saveAll(order.getOrderDetails());
-		if(order.isStatus()) {
+		if (order.isStatus()) {
 			this.confirmOrder(order.getId());
+			if (PaymentMode.CASH.getName().equals(order.getPaymentMode())) {
+				this.updateCashDrawer(order);
+			}
 		}
 		return order;
+	}
+
+	@Override
+	public void updateCashDrawer(Order order) {
+		CashDrawer drawer = new CashDrawer();
+		drawer.setEndingBalance(order.getTotalAmount());
+		drawerService.updateClosingDrawerBalance(drawer, order.getEmployee().getId());
 	}
 
 	private String currentDate() {
