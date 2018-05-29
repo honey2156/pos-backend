@@ -36,4 +36,9 @@ public class OrderResource {
 	public List<Order> getEmployeeOrders(@PathVariable int employeeId){
 		return orderService.getEmployeeOrders(employeeId);
 	}
+	
+	@GetMapping(value="cashdrawers/{cashDrawerId}/orders")
+	public List<Order> getOrdersByCashDrawer(@PathVariable int cashDrawerId){
+		return orderService.getOrdersByCashDrawer(cashDrawerId);
+	}
 }

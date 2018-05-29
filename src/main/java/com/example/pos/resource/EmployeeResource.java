@@ -37,8 +37,8 @@ public class EmployeeResource {
 		}
 		employeeService.seedEmployees(employees);
 	}
-	
-	@PostMapping(value="/login")
+
+	@PostMapping(value = "/login")
 	public Employee login(@RequestBody Employee employee) {
 		return employeeService.login(employee.getUsername(), employee.getPassword());
 	}

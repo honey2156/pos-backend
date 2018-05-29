@@ -52,7 +52,7 @@ public class OrderServiceImpl implements OrderService {
 	public List<Order> getCustomerOrders(int customerId) {
 		return customerDao.findById(customerId).getOrders();
 	}
-	
+
 	@Override
 	public List<Order> getEmployeeOrders(int employeeId) {
 		Employee employee = employeeDao.findById(employeeId);
@@ -103,6 +103,12 @@ public class OrderServiceImpl implements OrderService {
 		CashDrawer drawer = new CashDrawer();
 		drawer.setEndingBalance(order.getTotalAmount());
 		drawerService.updateClosingDrawerBalance(drawer, order.getEmployee().getId());
+	}
+
+	@Override
+	public List<Order> getOrdersByCashDrawer(int cashDrawerId) {
+		CashDrawer cashDrawer = drawerService.getDrawerById(cashDrawerId);
+		return orderDao.getOrdersByCashDrawer(cashDrawer.getEmployee(), cashDrawer.getDate());
 	}
 
 	private String currentDate() {

@@ -1,5 +1,7 @@
 package com.example.pos.resource;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,11 @@ public class DrawerResource {
 	@GetMapping
 	public CashDrawer getDrawer(@PathVariable("employeeId") int employeeId) {
 		return drawerService.getDrawer(employeeId);
+	}
+
+	@GetMapping(value = "/all")
+	public List<CashDrawer> getEmployeeDrawers(@PathVariable("employeeId") int employeeId) {
+		return drawerService.getEmployeeDrawers(employeeId);
 	}
 
 	@PostMapping

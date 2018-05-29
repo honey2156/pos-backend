@@ -2,6 +2,7 @@ package com.example.pos.service.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,20 @@ public class DrawerServiceImpl implements DrawerService {
 	private EmployeeDao employeeDao;
 
 	@Override
+	public CashDrawer getDrawerById(int id) {
+		return drawerDao.findById(id);
+	}
+
+	@Override
 	public CashDrawer getDrawer(int employeeId) {
 		Employee employee = employeeDao.findById(employeeId);
 		return drawerDao.getDrawerByDate(employee, this.getCurrentDate());
+	}
+
+	@Override
+	public List<CashDrawer> getEmployeeDrawers(int employeeId) {
+		Employee employee = employeeDao.findById(employeeId);
+		return drawerDao.getEmployeeCashDrawers(employee);
 	}
 
 	@Override

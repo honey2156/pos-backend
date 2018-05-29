@@ -19,4 +19,6 @@ public interface OrderService {
 	public Order order(Order order, int employeeId, int customerId);
 	
 	public void updateCashDrawer(Order order);
+	
+	public List<Order> getOrdersByCashDrawer(int cashDrawerId);
 }
