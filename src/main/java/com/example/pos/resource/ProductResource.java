@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.pos.model.Product;
 import com.example.pos.service.ProductService;
 
+/**
+ * @author mandeepsingh
+ *
+ */
 @RestController
 @RequestMapping(value = "/products")
 @CrossOrigin(origins = { "http://localhost:4200" })
@@ -21,6 +25,11 @@ public class ProductResource {
 	@Autowired
 	private ProductService productService;
 
+	/**
+	 * Get all products
+	 * 
+	 * @return
+	 */
 	@GetMapping
 	public List<Product> getAllProducts() {
 		return productService.getAllProducts();
@@ -33,7 +42,7 @@ public class ProductResource {
 	public void seedProducts() {
 		List<Product> seededProducts = new ArrayList<>();
 		for (int i = 1; i <= 20; i++) {
-			seededProducts.add(new Product("Item" + i, "Best product ever "+i, i, 10));
+			seededProducts.add(new Product("Item" + i, "Best product ever " + i, i, 10));
 		}
 		productService.seedProducts(seededProducts);
 	}

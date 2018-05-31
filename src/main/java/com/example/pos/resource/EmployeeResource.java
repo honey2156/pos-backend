@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.pos.model.Employee;
 import com.example.pos.service.EmployeeService;
 
+/**
+ * @author mandeepsingh
+ *
+ */
 @RestController
 @RequestMapping(value = "/employees")
 @CrossOrigin(origins = { "http://localhost:4200" })
@@ -22,12 +26,20 @@ public class EmployeeResource {
 	@Autowired
 	private EmployeeService employeeService;
 
+	/**
+	 * Get all employees
+	 * 
+	 * @return
+	 */
 	@GetMapping
 	public List<Employee> getAllEmployees() {
 		List<Employee> employees = employeeService.getAllEmployees();
 		return employees;
 	}
 
+	/**
+	 * Seed employees
+	 */
 	@GetMapping(value = "/seed")
 	public void seedEmployees() {
 		List<Employee> employees = new ArrayList<>();
@@ -38,6 +50,12 @@ public class EmployeeResource {
 		employeeService.seedEmployees(employees);
 	}
 
+	/**
+	 * Handles login authentication of employee
+	 * 
+	 * @param employee
+	 * @return
+	 */
 	@PostMapping(value = "/login")
 	public Employee login(@RequestBody Employee employee) {
 		return employeeService.login(employee.getUsername(), employee.getPassword());

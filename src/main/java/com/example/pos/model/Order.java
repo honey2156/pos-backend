@@ -16,6 +16,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+/**
+ * @author mandeepsingh
+ *
+ */
 @Entity
 @Table(name = TableConstants.ORDER)
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })

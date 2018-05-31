@@ -1,5 +1,9 @@
 package com.example.pos.constants.enums;
 
+/**
+ * @author mandeepsingh
+ *
+ */
 public enum PaymentMode {
 
 	CASH(1, "CASH"), CARD(2, "CARD");

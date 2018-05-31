@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.pos.model.Order;
 import com.example.pos.service.OrderService;
 
+/**
+ * @author mandeepsingh
+ *
+ */
 @RestController
 @CrossOrigin(origins = { "http://localhost:4200" })
 public class OrderResource {
@@ -20,25 +24,52 @@ public class OrderResource {
 	@Autowired
 	private OrderService orderService;
 
+	/**
+	 * Place order of customer by employee
+	 * 
+	 * @param employeeId
+	 * @param customerId
+	 * @param order
+	 * @return
+	 */
 	@PostMapping(value = "employees/{employeeId}/customers/{customerId}/orders")
 	public Order placeOrder(@PathVariable("employeeId") int employeeId, @PathVariable("customerId") int customerId,
 			@RequestBody Order order) {
 		return orderService.order(order, employeeId, customerId);
 	}
 
+	/**
+	 * Confirm order by order id
+	 * 
+	 * @param employeeId
+	 * @param customerId
+	 * @param orderId
+	 */
 	@GetMapping(value = "employees/{employeeId}/customers/{customerId}/orders/{orderId}")
 	public void confirmOrder(@PathVariable("employeeId") int employeeId, @PathVariable("customerId") int customerId,
 			@PathVariable int orderId) {
 		orderService.confirmOrder(orderId);
 	}
-	
-	@GetMapping(value="employees/{employeeId}/orders")
-	public List<Order> getEmployeeOrders(@PathVariable int employeeId){
+
+	/**
+	 * Get orders of employee
+	 * 
+	 * @param employeeId
+	 * @return
+	 */
+	@GetMapping(value = "employees/{employeeId}/orders")
+	public List<Order> getEmployeeOrders(@PathVariable int employeeId) {
 		return orderService.getEmployeeOrders(employeeId);
 	}
-	
-	@GetMapping(value="cashdrawers/{cashDrawerId}/orders")
-	public List<Order> getOrdersByCashDrawer(@PathVariable int cashDrawerId){
+
+	/**
+	 * Get all orders served by cashdrawer
+	 * 
+	 * @param cashDrawerId
+	 * @return
+	 */
+	@GetMapping(value = "cashdrawers/{cashDrawerId}/orders")
+	public List<Order> getOrdersByCashDrawer(@PathVariable int cashDrawerId) {
 		return orderService.getOrdersByCashDrawer(cashDrawerId);
 	}
 }

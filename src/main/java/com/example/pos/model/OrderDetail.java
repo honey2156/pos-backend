@@ -12,6 +12,10 @@ import com.example.pos.constants.TableConstants;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * @author mandeepsingh
+ *
+ */
 @Entity
 @Table(name = TableConstants.ORDER_DETAILS)
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })

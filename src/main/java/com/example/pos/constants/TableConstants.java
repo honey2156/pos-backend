@@ -1,5 +1,9 @@
 package com.example.pos.constants;
 
+/**
+ * @author mandeepsingh
+ *
+ */
 public class TableConstants {
 
 	public static final String CUSTOMER = "customers";

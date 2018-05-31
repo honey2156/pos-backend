@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.pos.model.Customer;
 import com.example.pos.service.CustomerService;
 
+/**
+ * @author mandeepsingh
+ *
+ */
 @RestController
 @RequestMapping(value = "customers")
 @CrossOrigin(origins = { "http://localhost:4200" })
@@ -21,6 +25,11 @@ public class CustomerResource {
 	@Autowired
 	private CustomerService customerService;
 
+	/**
+	 * Get all customers
+	 * 
+	 * @return
+	 */
 	@GetMapping
 	public List<Customer> getAllCustomers() {
 		return customerService.getAllCustomers();
