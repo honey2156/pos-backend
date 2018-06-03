@@ -22,6 +22,10 @@ import com.example.pos.model.Product;
 import com.example.pos.service.DrawerService;
 import com.example.pos.service.OrderService;
 
+/**
+ * @author mandeepsingh
+ *
+ */
 @Service
 public class OrderServiceImpl implements OrderService {
 
@@ -43,31 +47,59 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private DrawerService drawerService;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.example.pos.service.OrderService#getAllOrders()
+	 */
 	@Override
 	public List<Order> getAllOrders() {
 		return (List<Order>) orderDao.findAll();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.example.pos.service.OrderService#getCustomerOrders(int)
+	 */
 	@Override
 	public List<Order> getCustomerOrders(int customerId) {
 		return customerDao.findById(customerId).getOrders();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.example.pos.service.OrderService#getEmployeeOrders(int)
+	 */
 	@Override
 	public List<Order> getEmployeeOrders(int employeeId) {
 		Employee employee = employeeDao.findById(employeeId);
 		return orderDao.findAllByEmployee(employee);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.example.pos.service.OrderService#getOrder(int)
+	 */
 	@Override
 	public Order getOrder(int orderId) {
 		return orderDao.findById(orderId);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.example.pos.service.OrderService#confirmOrder(int)
+	 */
 	@Override
 	public void confirmOrder(int orderId) {
+		// Find Order by order id
 		Order order = orderDao.findById(orderId);
+		// update payment status to true
 		order.setStatus(true);
+		// update stock of all the products in the order after confirmation of order
 		List<OrderDetail> orderDetails = order.getOrderDetails();
 		for (OrderDetail orderDetail : orderDetails) {
 			int minusFactor = orderDetail.getQuantity();
@@ -78,19 +110,29 @@ public class OrderServiceImpl implements OrderService {
 		orderDao.save(order);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.example.pos.service.OrderService#order(com.example.pos.model.Order,
+	 * int, int)
+	 */
 	@Override
 	public Order order(Order order, int employeeId, int customerId) {
-
+		// Find employee by employee id
 		Employee employee = employeeDao.findById(employeeId);
+		// Find customer by customer id
 		Customer customer = customerDao.findById(customerId);
+		// Initialize order
 		order.setEmployee(employee);
 		order.setCustomer(customer);
 		order.setOrderDate(this.currentDate());
 		order.setOrderTime(this.currentTime());
 		order = orderDao.save(order);
 		orderDetailDao.saveAll(order.getOrderDetails());
+		// If order is placed then confirm order
 		if (order.isStatus()) {
 			this.confirmOrder(order.getId());
+			// If payment mode is by Cash then update cash drawer
 			if (PaymentMode.CASH.getName().equals(order.getPaymentMode())) {
 				this.updateCashDrawer(order);
 			}
@@ -98,25 +140,48 @@ public class OrderServiceImpl implements OrderService {
 		return order;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.example.pos.service.OrderService#updateCashDrawer(com.example.pos.model.
+	 * Order)
+	 */
 	@Override
 	public void updateCashDrawer(Order order) {
+		// Create cash drawer object for passing updated ending balance
 		CashDrawer drawer = new CashDrawer();
 		drawer.setEndingBalance(order.getTotalAmount());
 		drawerService.updateClosingDrawerBalance(drawer, order.getEmployee().getId());
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.example.pos.service.OrderService#getOrdersByCashDrawer(int)
+	 */
 	@Override
 	public List<Order> getOrdersByCashDrawer(int cashDrawerId) {
 		CashDrawer cashDrawer = drawerService.getDrawerById(cashDrawerId);
 		return orderDao.getOrdersByCashDrawer(cashDrawer.getEmployee(), cashDrawer.getDate());
 	}
 
+	/**
+	 * Returns current date from Date format to string format
+	 * 
+	 * @return
+	 */
 	private String currentDate() {
 		Date date = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		return dateFormat.format(date);
 	}
 
+	/**
+	 * Returns current time from Date format to string format
+	 * 
+	 * @return
+	 */
 	private String currentTime() {
 		Date date = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
