@@ -10,15 +10,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.pos.constants.ResourceConstants;
 import com.example.pos.model.Customer;
 import com.example.pos.service.CustomerService;
 
 /**
+ * Controller that handles Customer related requests
+ * 
  * @author mandeepsingh
  *
  */
 @RestController
-@RequestMapping(value = "customers")
+@RequestMapping(value = ResourceConstants.CUSTOMERS_BASE)
 @CrossOrigin(origins = { "http://localhost:4200" })
 public class CustomerResource {
 
@@ -38,7 +41,7 @@ public class CustomerResource {
 	/**
 	 * Seed for Customers
 	 */
-	@GetMapping(value = "/seed")
+	@GetMapping(value = ResourceConstants.CUSTOMERS_SEED)
 	public void seedCustomers() {
 		List<Customer> seededCustomers = new ArrayList<>();
 		for (int i = 1; i < 10; i++) {
@@ -53,7 +56,7 @@ public class CustomerResource {
 	 * @param searchPattern
 	 * @return
 	 */
-	@GetMapping(value = "/{searchPattern}")
+	@GetMapping(value = ResourceConstants.CUSTOMERS_SEARCH)
 	public List<Customer> searchCustomers(@PathVariable("searchPattern") String searchPattern) {
 		return customerService.searchCustomers(searchPattern);
 	}

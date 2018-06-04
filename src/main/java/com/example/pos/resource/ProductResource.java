@@ -10,15 +10,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.pos.constants.ResourceConstants;
 import com.example.pos.model.Product;
 import com.example.pos.service.ProductService;
 
 /**
+ * Controller that handles product requests
+ * 
  * @author mandeepsingh
  *
  */
 @RestController
-@RequestMapping(value = "/products")
+@RequestMapping(value = ResourceConstants.PRODUCT_BASE)
 @CrossOrigin(origins = { "http://localhost:4200" })
 public class ProductResource {
 
@@ -38,7 +41,7 @@ public class ProductResource {
 	/**
 	 * Seed for products
 	 */
-	@GetMapping(value = "/seed")
+	@GetMapping(value = ResourceConstants.PRODUCT_SEED)
 	public void seedProducts() {
 		List<Product> seededProducts = new ArrayList<>();
 		for (int i = 1; i <= 20; i++) {
@@ -53,7 +56,7 @@ public class ProductResource {
 	 * @param searchPattern
 	 * @return
 	 */
-	@GetMapping(value = "/{searchPattern}")
+	@GetMapping(value = ResourceConstants.PRODUCT_SEARCH)
 	public List<Product> searchProducts(@PathVariable("searchPattern") String searchPattern) {
 		return productService.searchProducts(searchPattern);
 	}

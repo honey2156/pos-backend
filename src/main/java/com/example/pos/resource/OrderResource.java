@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.pos.constants.ResourceConstants;
 import com.example.pos.model.Order;
 import com.example.pos.service.OrderService;
 
 /**
+ * Controller that handles order requests
+ * 
  * @author mandeepsingh
  *
  */
@@ -32,7 +35,7 @@ public class OrderResource {
 	 * @param order
 	 * @return
 	 */
-	@PostMapping(value = "employees/{employeeId}/customers/{customerId}/orders")
+	@PostMapping(value = ResourceConstants.PLACE_ORDER)
 	public Order placeOrder(@PathVariable("employeeId") int employeeId, @PathVariable("customerId") int customerId,
 			@RequestBody Order order) {
 		return orderService.order(order, employeeId, customerId);
@@ -45,7 +48,7 @@ public class OrderResource {
 	 * @param customerId
 	 * @param orderId
 	 */
-	@GetMapping(value = "employees/{employeeId}/customers/{customerId}/orders/{orderId}")
+	@GetMapping(value = ResourceConstants.CONFIRM_ORDER)
 	public void confirmOrder(@PathVariable("employeeId") int employeeId, @PathVariable("customerId") int customerId,
 			@PathVariable int orderId) {
 		orderService.confirmOrder(orderId);
@@ -57,7 +60,7 @@ public class OrderResource {
 	 * @param employeeId
 	 * @return
 	 */
-	@GetMapping(value = "employees/{employeeId}/orders")
+	@GetMapping(value = ResourceConstants.EMPLOYEE_ORDERS)
 	public List<Order> getEmployeeOrders(@PathVariable int employeeId) {
 		return orderService.getEmployeeOrders(employeeId);
 	}
@@ -68,7 +71,7 @@ public class OrderResource {
 	 * @param cashDrawerId
 	 * @return
 	 */
-	@GetMapping(value = "cashdrawers/{cashDrawerId}/orders")
+	@GetMapping(value = ResourceConstants.CASHDRAWER_ORDERS)
 	public List<Order> getOrdersByCashDrawer(@PathVariable int cashDrawerId) {
 		return orderService.getOrdersByCashDrawer(cashDrawerId);
 	}

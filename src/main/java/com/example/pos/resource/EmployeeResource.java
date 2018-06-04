@@ -11,15 +11,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.pos.constants.ResourceConstants;
 import com.example.pos.model.Employee;
 import com.example.pos.service.EmployeeService;
 
 /**
+ * Controller that handles Employee requests
+ * 
  * @author mandeepsingh
  *
  */
 @RestController
-@RequestMapping(value = "/employees")
+@RequestMapping(value = ResourceConstants.EMPLOYEE_BASE)
 @CrossOrigin(origins = { "http://localhost:4200" })
 public class EmployeeResource {
 
@@ -40,7 +43,7 @@ public class EmployeeResource {
 	/**
 	 * Seed employees
 	 */
-	@GetMapping(value = "/seed")
+	@GetMapping(value = ResourceConstants.EMPLOYEE_SEED)
 	public void seedEmployees() {
 		List<Employee> employees = new ArrayList<>();
 		for (int i = 1; i <= 3; i++) {
@@ -56,7 +59,7 @@ public class EmployeeResource {
 	 * @param employee
 	 * @return
 	 */
-	@PostMapping(value = "/login")
+	@PostMapping(value = ResourceConstants.EMPLOYEE_LOGIN)
 	public Employee login(@RequestBody Employee employee) {
 		return employeeService.login(employee.getUsername(), employee.getPassword());
 	}

@@ -12,15 +12,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.pos.constants.ResourceConstants;
 import com.example.pos.model.CashDrawer;
 import com.example.pos.service.DrawerService;
 
 /**
+ * Controller that handles cash drawer related requests
+ * 
  * @author mandeepsingh
  *
  */
 @RestController
-@RequestMapping(value = "employees/{employeeId}/drawers")
+@RequestMapping(value = ResourceConstants.CASHDRAWER_BASE)
 @CrossOrigin(origins = { "http://localhost:4200" })
 public class DrawerResource {
 
@@ -44,7 +47,7 @@ public class DrawerResource {
 	 * @param employeeId
 	 * @return
 	 */
-	@GetMapping(value = "/all")
+	@GetMapping(value = ResourceConstants.CASHDRAWER_ALL)
 	public List<CashDrawer> getEmployeeDrawers(@PathVariable("employeeId") int employeeId) {
 		return drawerService.getEmployeeDrawers(employeeId);
 	}
